@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Clock</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="scripts/jqueryRotate.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var angleSec = 0;
+        var angleMin = 0;
+        var angleHour = 0;
+		var test = {h:0,m:0,s:0};
+        $(document).ready(function () {
+            $("#sec").rotate(angleSec);
+            $("#min").rotate(angleMin);
+            $("#hour").rotate(angleHour);
+            $("#sec_test").rotate(angleSec);
+            $("#min_test").rotate(angleMin);
+            $("#hour_test").rotate(angleHour);
+			$(".ee").change(function(){
+				var s = parseInt($("#e_s").val());
+				var m = parseInt($("#e_m").val());
+				var h = parseInt($("#e_h").val());
+				var angleSec = (s * 6);
+				$("#sec").rotate(angleSec);
+
+				var angleMin = (m * 6+s/60);
+				$("#min").rotate(angleMin);
+
+				var angleHour = (h * 5 + (m + s/60)/ 12) * 6;
+				$("#hour").rotate(angleHour);
+				if (test.h==h && test.m==m && test.s==s)
+				{
+					$("#test").html('Правильно! Давай, еще!');
+					$("#test").show();
+					$("#test").focus();
+				}
+			});
+			$("#test").click(function(){
+				$("#resultstr").val('');
+				test.s = parseInt(Math.random()*60);
+				test.m = parseInt(Math.random()*60);
+				test.h = parseInt(Math.random()*12);
+				var angleSec = (test.s * 6);
+				$("#sec_test").rotate(angleSec);
+
+				var angleMin = (test.m * 6+test.s/60);
+				$("#min_test").rotate(angleMin);
+
+				var angleHour = (test.h * 5 + (test.m + test.s/60)/ 12) * 6;
+				$("#hour_test").rotate(angleHour);
+				$("#e_h").focus();
+				$("#test").hide();
+			});
+        });
+
+    </script>
+
+    <style type="text/css">
+		.inl
+		{
+			display:inline-block;
+			vertical-align:top;
+		}
+        .clockHolder
+        {
+            width:755px;
+            position:relative;
+			display:block;
+            top:0px;
+            left:0px;
+        }
+        
+        #sec
+        {
+            display:block;
+            position:absolute;
+        }
+        #min
+        {
+            display:block;
+            position:absolute;
+        }
+        #hour
+        {
+            display:block;
+            position:absolute;
+        }
+        
+        .rotatingWrapper
+        {
+            position:absolute;
+            width:755px;
+            height:755px;
+            top:0px;
+            left:0px;
+        }
+		.ee
+		{
+			font-size:50px;
+			width:100px;
+			text-align:right;
+		}
+		button
+		{
+			font-size:50px;
+		}
+    </style>
+
+</head>
+<body>
+	<div class="inl">
+		<div class="clockHolder">
+			<div class="rotatingWrapper"><img id="hour" src="images/hour.png" /></div>
+			<div class="rotatingWrapper"><img id="min" src="images/minute.png" /></div>
+			<div class="rotatingWrapper"><img id="sec" src="images/second.png" /></div>
+			<img id="clock" src="images/clock.png" />
+		</div>
+		<div class="inl">
+			<input id="e_h" value="" class="ee"/>
+			<input id="e_m" value="" class="ee"/>
+			<input id="e_s" value="" class="ee"/>
+		</div>
+    </div>
+	<div class="inl">
+		<div class="clockHolder">
+			<div class="rotatingWrapper"><img id="hour_test" src="images/hour.png" /></div>
+			<div class="rotatingWrapper"><img id="min_test" src="images/minute.png" /></div>
+			<div class="rotatingWrapper"><img id="sec_test" src="images/second.png" /></div>
+			<img id="clock" src="images/clock.png" />
+		</div>
+		<div class="inl">
+			<button id="test">ТЕСТ</button>
+		</div>
+    </div>
+</body>
+</html>
